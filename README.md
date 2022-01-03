@@ -64,13 +64,13 @@ Máscara del despliegue:
  
 ![Image text](https://github.com/EdwinChirre/ds_challeng_rappi/blob/55f677520cfd825daa16c388e838409e7a632cde/Conclusion_Modelo.png)
  
-    a.	La proporción de la data a nivel trxs es: 97% no fraudulenta y 3% fraudulenta y a nivel cliente es: 83% usuario no fraudulento y 17% usuario fraudulento
+    a.	La proporción de la data a nivel trxs es: 97% no fraudulenta y 3% fraudulenta y a nivel cliente es: 83% usuarios no fraudulento y 17% usuarios fraudulento
     b.	Del descriptivo podemos ver que hay días con mayor índice de trxs fraudulentas (16,20 y 28 de enero)
     c.	Del bivariado podemos notar la relación que tiene la TC física con los fraudes, trxs en web son menos propensas a ser fraudulentas. Los montos bajos tienden a ser más fraude
     d.	Se tienen 4 segmentos, donde hay uno que es el de mayor interés, porque tiene un gran consumo (alto valor) y concentra mayor cantidad de clientes fraudulentos (Segmento alto valor con riesgo muy alto)
     e.	Se desarrollaron 2 modelos, uno a nivel trxs y otro a nivel cliente
-    f.	Modelo a nivel trxs se hizo regresión logística con Oversampling (SMOTE). El modelo me ayuda a detectar el 40% de trxs fraudulentas realmente
-    g.	Modelo a nivel cliente: Se un modelo LGBM con Oversampling (SMOTE). El modelo me ayuda a detectar el 59% de clientes fraudulentos que realmente lo son. También se encuentran 3 grupos que diferencian por su nivel de fraude (Alto, medio y bajo)
+    f.	Modelo a nivel trxs se hizo regresión logística con Oversampling (SMOTE). El modelo me ayuda a detectar el 40% de trxs fraudulentas correctamente
+    g.	Modelo a nivel cliente: Se un modelo LGBM con Oversampling (SMOTE). El modelo me ayuda a detectar el 59% de clientes fraudulentos que realmente lo son. También se encuentran 3 grupos que se diferencian por su nivel de fraude (Alto, medio y bajo)
 
  
  ## Análisis detallado:
@@ -88,7 +88,7 @@ En el bivariado:
 -	Los miércoles probablemente son los días con mayores casos de fraude y sábado y viernes con menos probabilidad
 d.	Análisis bivariado Variables numéricas vs Target:
 
-Por correlación por encima del 0.8, excluyo la variable creada: Porc_dscto (porcentaje de descuento)
+Por correlación encima del 0.8, excluyo la variable creada: Porc_dscto (porcentaje de descuento)
 En el bivariado con los gráficos de boxplot:
 
 -	Montos más bajos son los que ligeramente tienden a ser fraudes
@@ -98,7 +98,8 @@ En el bivariado con los gráficos de boxplot:
 
 
 2.	Clúster: 
-Se encontraron 4 segmentos a nivel cliente que se perfilan principalmente por el consumo y nivel de fraude. Para la segmentación no se considera la variable fraude, ya que, en su momento, es una variable que no se tiene. Se usa la variable para perfilar y describir que tanto se relaciona con los segmentos.
+Se encontraron 4 segmentos a nivel cliente que se perfilan principalmente por el consumo y nivel de fraude. 
+Para la segmentación no se considera la variable fraude, ya que, en su momento, es una variable que no se tiene. Se usa la variable para perfilar y describir que tanto se relaciona con los segmentos.
 
 a.	Bajo valor con riesgo bajo (13.5%): Grupo de cliente con bajo consumo, pero línea de TC intermedia y es el grupo de clientes con menos usuarios fraudulentos
 
@@ -106,16 +107,19 @@ b.	Bajo valor con riesgo intermedio (27%): Grupo de usuarios con línea de TC m�
 
 c.	Mediano valor con riesgo alto (32.5%): Grupo de usuarios con una línea de TC intermedia con la Tasa de interés más baja y consumo intermedio. Con respecto al fraude, tiene un fraude alto con un gran número de txs rechazadas.
 
-d.	Alto valor y riesgo muy alto: Grupo de clientes con gran consumo y menor línea de TC con tasa super alta y concentra la mayor cantidad de clientes con fraude
+d.	Alto valor y riesgo muy alto (27%): Grupo de clientes con gran consumo y menor línea de TC con tasa super alta y concentra la mayor cantidad de clientes con fraude
 
 Después de realizar la segmentación, podemos hacer más foco en el segmento Alto valor y riesgo muy alto, ya que me generan buen consumo, pero a la vez, es el grupo con mayor riesgo.
 Hacer la segmentación nos ayuda para concentrarnos en un segmento foco y generar un modelo para cada uno. Para nuestro caso, se hará uno global y se tomará el segmento como una variable
 
-Nota: Si bien es cierto, los fraudes están asociados a trxs pero en el desafío no me queda claro si es a nivel trxs o a nivel cliente, por ello, hice 2 modelos
+Nota: Si bien es cierto, los fraudes están asociados a trxs, pero en el desafío no me queda claro si es a nivel trxs o a nivel cliente, por ello, hice 2 modelos
 
 3.	Modelo a nivel trxs
+
 La distribución de fraude es: 
+
 No Fraude: 97.0 % del dataset con 26165 trxs 
+
 Fraude: 3.0 % del dataset con 810 trxs
 
 
@@ -123,7 +127,7 @@ Se hace una regresión logística con SMOTE para hacer un oversampling ya que el
 
 
 Importancia de variables:
--	Las variables más importantes son son monto, cashback, hora y las menos importante son is_prime y os_Android, siendo prime no significativa 
+-	Las variables más importantes son monto, cashback, hora y las menos importante son is_prime y os_Android, siendo prime no significativa 
 
 Interpretación:
 -	Al tener coeficiente negativo el monto, significa que hay más probabilidad de que ocurra fraude si el monto es bajo
@@ -141,9 +145,13 @@ Trade-off:
 -	Y revisando los montos, si no tuviera un modelo sería 81,000 aprox, entonces nos centramos en que tengo 27% de gastos que ya no serán por fraude.
 
 4.	Modelo a nivel cliente
+
 A nivel cliente, la proporción de fraude cambia:
+
 No Fraude: 83.12 % del dataset con 3325 Clientes
+
 Fraude: 16.88 % del dataset con 675 Clientes
+
 	
 Se realizó un modelo LGBM y también se hizo SMOTE para balancear la clase de fraudulentos
 
@@ -167,5 +175,5 @@ Trade-off:
 
 -	El recall parte de los que realmente son fraudulentos o no fraudulentos y cuanto de ellos se acertó. De los 135 fraudulentos acertó 93, donde se evidencia que se está prediciendo los fraudulentos por encima de la mitad y eso es bueno.
 
--	Adicional, se segmenta en 3 grupos, uno de riesgo de fraude alto, medio y bajo basado en la probabilidad de ser un cliente fraudulento para poder aplicar estrategias diferenciadas en la gestión de detección de fraude.
+-	Adicional, se segmenta en 3 grupos, uno de riesgo de fraude alto, medio y bajo basado en la probabilidad de ser un cliente fraudulento para poder aplicar estrategias diferenciadas en la gestión de detección de fraude. Por ejemplo, a los de riesgo alto, enviar un sms alertando al cliente sobre su trx, al de riesgo intermedio, pasar por una prueba adicional y a los de riesgo bajo, agilizar su flujo del proceso
 
