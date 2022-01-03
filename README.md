@@ -46,7 +46,7 @@ d. Modelos: Tiene los pkls de los dos modelos y el segmento
 	conda activate ApiFraudeTrx
 	conda install python3.10
 	
-	Cambiar direccion a la ubicacion de los archivos
+	#Cambiar direccion a la ubicacion de los archivos
 	pip install -r requirements.txt
 	streamlit run app_trx.py 
 	
