@@ -34,7 +34,32 @@ d. Modelos: Tiene los pkls de los dos modelos y el segmento
 
       - lgbm_cliente.pkl: Modelo 2    
       
-      
+  e. Despliegue del modelo transaccional: Se realizó de manera local
+  
+  	- Crear en miniconda
+	- Los pkls están en en Modelos
+	- El .py es app_trx.py
+	
+	Pasos: 
+  
+  	conda create -n ApiFraudeTrx
+	conda activate ApiFraudeTrx
+	conda install python3.10
+	
+	Cambiar direccion a la ubicacion de los archivos
+	pip install -r requirements.txt
+	streamlit run app_trx.py 
+	
+	Consideraciones:
+	- Tomar la data entre 0 y 1 (ya normalizada)
+	
+Ejemplos:
+![Image text](https://github.com/EdwinChirre/ds_challeng_rappi/blob/main/EjemploDespliegue/Ejemplos.png)
+	
+Máscara del despliegue:
+![Image text](https://github.com/EdwinChirre/ds_challeng_rappi/blob/main/EjemploDespliegue/ModeloDespliegue.PNG)
+  
+  
  ## Conclusiones:
  
 ![Image text](https://github.com/EdwinChirre/ds_challeng_rappi/blob/55f677520cfd825daa16c388e838409e7a632cde/Conclusion_Modelo.png)
