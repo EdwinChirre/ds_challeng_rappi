@@ -6,7 +6,7 @@ a. ds_challenge_2021.csv: Data
 
 b. Analisis: Notebook que contiene el análisis y construcción de los modelos
 
-c. Replica: Tiene el notebook que ayudará para replicar los modelos de manera local y masiva de manera local
+c. Replica: Tiene el notebook que ayudará para replicar los modelos de manera local y masiva
 
 d. Modelos: Tiene los pkls de los dos modelos y el segmento
 
